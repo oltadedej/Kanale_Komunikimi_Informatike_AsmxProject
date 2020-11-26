@@ -38,10 +38,107 @@ namespace Kanale_Alt_Asmx_Project
         [WebMethod]
         public PhoneBookModel GetByID(long id)
         {
-            //return service.Connected();
+            PhoneBookModel model = new PhoneBookModel();
 
-            return new PhoneBookModel();
+            model.Preselect(service.GetById(id));
+
+            return model;
         }
+
+
+        [WebMethod]
+        public string Save(PhoneBookModel model)
+        {
+            T_PHONE_BOOK item = new T_PHONE_BOOK();
+
+            model.Fill(item);
+
+            if(model != null)
+            {
+                if (service.Save(item))
+                {
+                    return "Elementi u shtua me sukses";
+
+                }
+                else
+                {
+                    return "Probleme gjate shtimit";
+                }
+            }
+
+            else
+            {
+                return "Specifikoni nje objekt te vlefshem";
+            }
+            
+        }
+
+        [WebMethod]
+        public string Put(PhoneBookModel model)
+        {
+            if (model != null && model.Id.HasValue)
+            {
+
+                //Test2
+                T_PHONE_BOOK item = service.GetById(model.Id.Value);
+
+                if (item != null)
+                { 
+                    //Test4 --> Test2-->Test4
+                    model.Fill(item);
+                
+                    if (service.Put(item))
+                    {
+                        return "Elementi u modifikua me sukses";
+
+                    }
+                    else
+                    {
+                        return "Probleme gjate modifikimie";
+                    }
+                }
+                else
+                {
+                    return "Elementi nuk u gjet ne bazen e te dhenave";
+                }
+              
+            }
+
+            else
+            {
+                return "Specifikoni nje objekt te vlefshem";
+            }
+
+        }
+
+        [WebMethod]
+        public string Delete (long id)
+        {
+            if (id > 0)
+            {
+                T_PHONE_BOOK item = service.GetById(id);
+                if (item != null)
+                {
+                    if (service.Delete(item))
+                    {
+                        return "Elementi u fshi me sukses";
+                    }
+                    else
+                    {
+                        return "Probleme gjate fshirjes";
+                    }
+                }
+                else
+                {
+                    return "Elementi nuk u gjet ne bazen e te dhenave";
+                }
+            }
+            else
+            {
+                return "Specifikoni nje id te vleshfshme";
+            }
+        }
+
 
     }
 }
