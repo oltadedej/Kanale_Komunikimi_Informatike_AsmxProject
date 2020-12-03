@@ -139,7 +139,7 @@ namespace Phone_Book_Core.Service
                 {
                     using (PHONE_BOOK_DBEntities db = new PHONE_BOOK_DBEntities())
                     {
-                        
+                        db.T_PHONE_BOOK.Attach(item);
                         db.T_PHONE_BOOK.Remove(item);
                         db.SaveChanges();
                         isDeleted = true;

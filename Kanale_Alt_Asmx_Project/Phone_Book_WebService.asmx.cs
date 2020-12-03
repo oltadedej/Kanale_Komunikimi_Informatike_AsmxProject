@@ -19,7 +19,7 @@ namespace Kanale_Alt_Asmx_Project
     // [System.Web.Script.Services.ScriptService]
     public class Phone_Book_WebService : System.Web.Services.WebService
     {
-        private readonly PhoneBookService service = new PhoneBookService();
+        private readonly PhoneBookService service = new PhoneBookService(); // klasa që ruan referencen për tek metodat me bazen e të dhënave
 
         [WebMethod]
         public string HelloWorld()
