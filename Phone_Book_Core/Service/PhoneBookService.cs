@@ -107,7 +107,7 @@ namespace Phone_Book_Core.Service
                     using (PHONE_BOOK_DBEntities db = new PHONE_BOOK_DBEntities())
                     {
                         item.DELETED_DATE = DateTime.Now;
-                        db.T_PHONE_BOOK.Add(item); 
+                        db.T_PHONE_BOOK.Add(item);
                         db.Entry(item).State = System.Data.Entity.EntityState.Modified; // delete logjik
                         db.SaveChanges();
                         isDeleted = true;
@@ -156,6 +156,23 @@ namespace Phone_Book_Core.Service
 
             return isDeleted;
         }
+
+        public IEnumerable<T_PHONE_BOOK> Search()
+        {
+            using (PHONE_BOOK_DBEntities db = new PHONE_BOOK_DBEntities())
+            {
+                return db.T_PHONE_BOOK.ToList().Where(i => !i.DELETED_DATE.HasValue);
+            }
+        }
+
+        public async Task<IEnumerable<T_PHONE_BOOK>> SearchPhoneBook()
+        {
+            using (PHONE_BOOK_DBEntities db = new PHONE_BOOK_DBEntities())
+            {
+                return  db.T_PHONE_BOOK.ToList().Where(i => !i.DELETED_DATE.HasValue);
+            }
+        }
+
     }
 
 }
