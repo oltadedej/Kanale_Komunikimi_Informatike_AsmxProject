@@ -165,17 +165,7 @@ namespace Phone_Book_Core.Service
             }
         }
 
-        /// <summary>
-        ///Search phone book as task
-        /// </summary>
-        /// <returns></returns>
-        public async Task<IEnumerable<T_PHONE_BOOK>> SearchPhoneBook()
-        {
-            using (PHONE_BOOK_DBEntities db = new PHONE_BOOK_DBEntities())
-            {
-                return   db.T_PHONE_BOOK.ToList().Where(i => !i.DELETED_DATE.HasValue);
-            }
-        }
+       
 
     }
 
